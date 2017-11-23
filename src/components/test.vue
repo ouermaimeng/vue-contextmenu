@@ -1,50 +1,61 @@
 <template>
-  <div>
-    <div class="app" v-for="(item,index) in test" @contextmenu.prevent.self="showMnue(index)">
-      <Mune :idx = "index">
+  <div class="test">
+    <div class="app" v-for="item in test">
+      <ContextMenu v-on:ContextMenuClick="ContextMenuClick">
         <slot>
-          <ul>
-            <li @click.stop="a()">fdsaf</li>
-            <li @click.stop="a()">fdsafds</li>
-            <li @click.stop="a()">fdsafs</li>
+          <ul class="menu">
+            <li>菜单1</li>
+            <li>菜单2</li>
+            <li>菜单3</li>
           </ul>
         </slot>
-      </Mune>
+      </ContextMenu>
+    </div>
+    <div class="app">
+      <ContextMenu v-on:ContextMenuClick="ContextMenuClick">
+        <slot>
+          <ul>
+            <li>菜单4</li>
+            <li>菜单5</li>
+            <li>菜单6</li>
+          </ul>
+        </slot>
+      </ContextMenu>
     </div>
   </div>
 </template>
 
 <script>
-import Mune from './mune'
+import ContextMenu from './menu'
 export default {
   name: 'hello',
   data () {
     return {
       test:[1,2,3],
-      msg: 'Welcome to Your Vue.js App'
     }
   },
   methods: {
-    showMnue (index) {
-      let data = {
-        status:true,
-        index,
-        event
+    ContextMenuClick(val){
+      switch(val){
+        case '菜单1':
+        case '菜单2':
+        case '菜单3':
+        case '菜单4':
+        case '菜单5':
+        case '菜单6':
+            alert(val);
+            break;
       }
-      this.$store.commit('toggleMenuShow',data)
-    },
-    a(){
-      alert('来自父组件的问候')
     }
   },
   components: {
-    Mune
+    ContextMenu
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   .app{
     width: 200px;
     height: 200px;
@@ -52,5 +63,13 @@ export default {
     margin-right: 100px;
     display: inline-block;
     position: relative;
+  }
+  .app ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .menu{
+    width: 100px;
   }
 </style>
